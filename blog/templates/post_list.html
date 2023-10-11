@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+<
+{% block body %}
+  
+<main>
+
+   <!------------------------ Site Title ---------------------->
+
+   <section class="site-title">
+       <div class="site-background" data-aos="fade-up" data-aos-delay="100">
+           <h3 class="">مدونة </h3>
+           <h1>مقالات متنوعة</h1>
+           <button class="btn">تصفح</button>
+       </div>
+   </section>
+
+   <!------------x----------- Site Title ----------x----------->
+
+   <!-- --------------------- Blog Carousel ----------------- -->
+
+   <section>
+       <div class="blog">
+           <div class="container">
+               <div class="owl-carousel owl-theme blog-post">
+                {% for post in posts %}
+                    
+                <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                    <img src="{{post.image.url}}">
+                    <div class="blog-title">
+                        <h3>{{post.title}}</h3>
+                        <button class="btn btn-blog">{{post.category}}</button>
+                        <span>{{post.date| date:'Y-m-d'}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+               </div>
+               <div class="owl-navigation">
+                   <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
+                   <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
+               </div>
+           </div>
+       </div>
+   </section>
+
+   <!-- ----------x---------- Blog Carousel --------x-------- -->
+
+   <!-- ---------------------- Site Content -------------------------->
+
+   <section class="container">
+       <div class="site-content">
+           <div class="posts">
+            {% for post in posts %}
+               
+               <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                   <div class="post-image">
+                       <div>
+                           <img src="{{post.image.url}}" class="img" alt="blog1">
+                       </div>
+                       <div class="post-info flex-row">
+                           <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{post.auther}}</span>
+                           <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.date| date:'Y-m-d'}}</span>
+                           <span>2 تعليقات</span>
+                       </div>
+                   </div>
+                   <div class="post-title">
+                       <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                       <p>{{post.body|truncatewords:30}}
+                       </p>
+                       <button href="{{post.get_absolute_url}}" class="btn post-btn">اقرأ المزيد &nbsp; <i class="fas fa-arrow-right"></i></button>
+                   </div>
+               </div>
+               <hr>
+            {% endfor %}
+
+               <div class="pagination flex-row">
+                   <a href="#"><i class="fas fa-chevron-left"></i></a>
+                   <a href="#" class="pages">1</a>
+                   <a href="#" class="pages">2</a>
+                   <a href="#" class="pages">3</a>
+                   <a href="#"><i class="fas fa-chevron-right"></i></a>
+               </div>
+           </div>
+           <aside class="sidebar">
+               <div class="category">
+                   <h2>Category</h2>
+                   <ul class="category-list">
+                    {% for category in categories %}
+                        
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+                        <a href="#">{{category.name}}</a>
+                        <span>{{category.posts.count}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+               </div>
+               <div class="popular-post">
+                   <h2>Latest Post</h2>
+                   {% for post in new_posts %}
+                    
+                   <div class="post-content" data-aos="flip-up" data-aos-delay="200">
+                       <div class="post-image">
+                           <div>
+                               <img src="{{post.image.url}}" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.date| date:'Y-m-d'}}</span>
+                                    <span>{{post.comment.count}}</span>
+                                </div>
+                            </div>
+                            <div class="post-title">
+                                <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+               
+
+               <div class="popular-tags">
+                   <h2>Popular Tags</h2>
+                   
+                   <div class="tags flex-row">
+                    {% for tag in tags %}
+                        <span class="tag" data-aos="flip-up" data-aos-delay="100"><a href="">{{ tag.name }}</a></span>
+                    {% endfor %}
+
+                   </div>
+               </div>
+           </aside>
+       </div>
+   </section>
+
+   <!-- -----------x---------- Site Content -------------x------------>
+
+</main>
+
+ {% endblock body %}

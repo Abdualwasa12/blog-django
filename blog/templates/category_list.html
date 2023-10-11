@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body %}
+ 
+<div class="content-outer">
+    <div id="page-content" class="row"> 
+        <div id="primary" class="eight columns">
+       {% for post in category.posts.all %}
+         <article class="post">
+
+            <div class="entry-header cf">
+
+               <h1><a href="{{post.get_absolute_url}}">{{post.title}}</a></h1>
+
+               <p class="post-meta">
+
+                  <time class="date" datetime="">{{post.date}}</time>
+                  /
+                  <span class="categories">
+                  <a href="#">{{post.category.name}}</a> /
+                  <a href="#">User Inferface</a> /
+                  <a href="#">Web Design</a>
+                  </span>
+
+               </p>
+
+            </div>
+
+            <div class="post-thumb">
+                <a href="{{post.get_absolute_url}}" title=""><img class="post-image" src="{{ post.image.url }}" alt="post-image" title="post-image"></a>
+            </div>
+
+            <div class="post-content">
+
+               <p>{{post.body|truncatewords:30}}</p>
+
+            </div>
+
+         </article> <!-- post end -->
+       {% endfor %}
+    
+{% endblock body %}

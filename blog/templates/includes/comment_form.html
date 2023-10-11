@@ -1,0 +1,8 @@
+
+{% block body %}
+<form method="post" class="mb-4" action="{% url 'blog:comment_post' post.id%}">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success" value="Add comment">Post a comment</button>
+  </form>
+{% endblock body %}

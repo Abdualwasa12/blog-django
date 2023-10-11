@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+ <!-- Content
+ ================================================== -->
+ <div class="content-outer">
+     
+     
+     <div id="page-content" class="row">
+
+       <div id="primary" class="eight columns">
+
+          <article class="post">
+
+             <div class="entry-header cf">
+
+                <h1>{{post.title}}</h1>
+
+                <p class="post-meta">
+
+                   <time class="date" datetime="2014-01-14T11:24">{{post.date}}</time>
+                   /
+                   <span class="categories">
+                   <a href="#">{{post.category.name}}</a> /
+                   </span>
+
+                </p>
+
+             </div>
+
+             <div class="post-thumb">
+                <img src="{{post.image.url}}" alt="post-image" title="post-image">
+             </div>
+
+             <div class="post-content">
+
+                <p class="lead">{{post.body}} </p>
+
+    
+                <!-- <p class="tags">
+                        <span>Tagged in </span>:
+                        
+                     </p> -->
+
+                <div class="bio cf">
+
+                   <div class="gravatar">
+                      <img src="images/author-img.png" alt="">
+                   </div>
+                   
+                   
+                   <div class="about">
+                    
+                      <h5><a title="Posts by John Doe" href="#" rel="author">{{post.auther.name}}:الكاتب</a></h5>
+                      <p>{{post.auther.descreption}}
+                      </p>
+                
+                   </div>
+                </div>
+                <ul class="post-nav cf">
+                    <li class="prev"><strong>
+                     <h2>مقالات مشابهه</h2>
+                     {% for post in similar_posts %}
+                     <p>
+                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </p>
+                     {% empty %}
+                        لا يوجد مقالات مشابهه
+                     {% endfor %}
+                    </strong></li>
+                   
+                </ul>
+
+             </div>
+
+          </article> <!-- post end -->
+
+          <!-- Comments
+          ================================================== -->
+          <div id="comments">
+            {% with comments.count as total_comments  %}
+              
+            <h3>{{ total_comments }} comment</h3>
+            
+            {% endwith %}
+             <!-- commentlist -->
+             <ol class="commentlist">
+            
+                {% for comment in post.comments.all %}
+                <li class="depth-1">
+
+                   <div class="avatar">
+                     {% if user.profile.has_image %}
+                        
+                     <img width="50" height="50" class="avatar" src="{{user.profile.image.url}}" alt="">
+                     {% endif %}
+                   </div>
+
+                   <div class="comment-info">
+                      <cite>{{comment.created_by}}</cite>
+
+                      <div class="comment-meta">
+                         <time class="comment-time" >{{ comment.created_at }}</time>
+                         <span class="sep">/</span><a class="reply" href="#">Reply</a>
+                      </div>
+                   </div>
+
+                   <div class="comment-text">
+                      <p>{{ comment.message }}</p>
+                   </div>
+                   
+                </li>
+               {% endfor %}
+               
+             </ol> <!-- Commentlist End -->
+
+
+             <!-- respond -->
+            <div class="respond">
+
+                <h3>Leave a Comment</h3>
+
+                <!-- form -->
+               <div class="mb-33">
+                {% include 'includes/comment_form.html' %}
+                <!-- Form End -->
+               </div>
+            </div> <!-- Respond End -->
+
+          </div>  <!-- Comments End -->
+
+       </div>
+
+       <div id="secondary" class="four columns end">
+
+          <aside id="sidebar">
+          </aside> <!-- Sidebar End -->
+
+       </div> <!-- Comments End -->
+    </div>
+
+ </div> <!-- Content End-->
+{% endblock body %}
